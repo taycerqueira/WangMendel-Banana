@@ -13,7 +13,6 @@ public class Database {
 	private String nomeRelacao;
 	private List<Atributo> atributos;
 	private List<String> classes;
-	private List<Double> instancias;
 
 	public Database() {
 		super();
@@ -45,7 +44,7 @@ public class Database {
 					switch(token[0]){
 						case "@relation":
 							this.nomeRelacao = token[1];
-							System.out.println("Relation: " + this.nomeRelacao);
+							System.out.println("=> Relation: " + this.nomeRelacao);
 							break;
 						case "@attribute":
 							String nomeAtributo = token[1];
@@ -61,7 +60,7 @@ public class Database {
 								
 								Atributo atributo = new Atributo(nomeAtributo, limiteInferior, limiteSuperior, contIndiceAtributo);
 								this.atributos.add(atributo);
-								System.out.println("Atributo " + contIndiceAtributo + ": " + nomeAtributo + " - [" + limiteInferior + ", " + limiteSuperior + "]");
+								System.out.println("=> Atributo " + contIndiceAtributo + ": " + nomeAtributo + " [" + limiteInferior + ", " + limiteSuperior + "]");
 								contIndiceAtributo++;
 							}
 							else{
@@ -69,10 +68,10 @@ public class Database {
 								t = t.replaceAll("\\}", "");
 								//System.out.println(t);
 								String[] classes = t.split(",");
-								System.out.println("Classes: ");
+								System.out.println("=> Classes: ");
 								for (String classe : classes) {
 									this.classes.add(classe);
-									System.out.println("-> " + classe);
+									System.out.println(classe);
 								}
 							}
 							
@@ -82,8 +81,13 @@ public class Database {
 				}
 				//Dados
 				else{
-					
-					System.out.println(linha);
+					//System.out.println(linha);
+					String[] l = linha.split(",");
+					for(int i = 0; i < contIndiceAtributo; i++){
+						//System.out.println("i == " + i);
+						atributos.get(i).getValores().add(Double.parseDouble(l[i]));
+						//System.out.println(Double.parseDouble(l[i]));
+					}
 				}
 			}
 
@@ -92,9 +96,40 @@ public class Database {
 			System.out.println(e);
 			
 		} 
+		
+		/*Atributo atributo = this.atributos.get(1);
+		for (Double valor : atributo.getValores()) {
+			System.out.println(valor);
+		}*/
+		
+		/*System.out.println("tamanho 1: " + this.atributos.get(0).getValores().size());
+		System.out.println("tamanho 2: " + this.atributos.get(1).getValores().size());*/
+		
 
 	}
-	
 
+	public String getNomeRelacao() {
+		return nomeRelacao;
+	}
+
+	public void setNomeRelacao(String nomeRelacao) {
+		this.nomeRelacao = nomeRelacao;
+	}
+
+	public List<Atributo> getAtributos() {
+		return atributos;
+	}
+
+	public void setAtributos(List<Atributo> atributos) {
+		this.atributos = atributos;
+	}
+
+	public List<String> getClasses() {
+		return classes;
+	}
+
+	public void setClasses(List<String> classes) {
+		this.classes = classes;
+	}
 
 }

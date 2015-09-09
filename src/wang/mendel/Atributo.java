@@ -13,11 +13,13 @@ public class Atributo {
 	private List<Double> valores;
 	
 	public Atributo(String nomeAtributo, double limiteInferior, double limiteSuperior, int indice) {
+		
 		this.nomeAtributo = nomeAtributo;
 		this.limiteInferior = limiteInferior;
 		this.limiteSuperior = limiteSuperior;
 		this.indice = indice;
 		this.valores = new ArrayList<Double>();
+
 	}
 	
 	public String getNomeAtributo() {
