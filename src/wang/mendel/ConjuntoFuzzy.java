@@ -3,15 +3,16 @@ package wang.mendel;
 public class ConjuntoFuzzy {
 	
 	private Atributo atributo;
-	private double limiteSuperior;
 	private double limiteInferior;
+	private double limiteSuperior;
+	private int indiceConjunto;
 	
-	public ConjuntoFuzzy(Atributo atributo, double limiteSuperior, double limiteInferior) {
-		
-		super();
+	public ConjuntoFuzzy(Atributo atributo, double limiteInferior, double limiteSuperior, int indiceConjunto) {
+
 		this.atributo = atributo;
-		this.limiteSuperior = limiteSuperior;
 		this.limiteInferior = limiteInferior;
+		this.limiteSuperior = limiteSuperior;
+		this.indiceConjunto = indiceConjunto;
 		
 	}
 

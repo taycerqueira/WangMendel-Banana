@@ -12,7 +12,8 @@ public class Database {
 	
 	private String nomeRelacao;
 	private List<Atributo> atributos;
-	private List<String> classes;
+	private List<Double> classes;
+	private int quantInstancias = 0;
 
 	public Database() {
 		super();
@@ -24,7 +25,7 @@ public class Database {
 			BufferedReader dados = new BufferedReader(new FileReader(nomeArquivo));
 			this.nomeRelacao = new String();
 			this.atributos = new ArrayList<Atributo>();
-			this.classes = new ArrayList<String>();
+			this.classes = new ArrayList<Double>();
 			int contIndiceAtributo = 0;
 		
 			while (dados.ready()) { 
@@ -70,7 +71,7 @@ public class Database {
 								String[] classes = t.split(",");
 								System.out.println("=> Classes: ");
 								for (String classe : classes) {
-									this.classes.add(classe);
+									this.classes.add(Double.parseDouble(classe));
 									System.out.println(classe);
 								}
 							}
@@ -82,6 +83,7 @@ public class Database {
 				//Dados
 				else{
 					//System.out.println(linha);
+					this.quantInstancias++;
 					String[] l = linha.split(",");
 					for(int i = 0; i < contIndiceAtributo; i++){
 						//System.out.println("i == " + i);
@@ -90,6 +92,8 @@ public class Database {
 					}
 				}
 			}
+			
+			System.out.println("=> Quantidade de instâncias: " + quantInstancias);
 
 		}  catch (IOException e) {
 			
@@ -124,12 +128,16 @@ public class Database {
 		this.atributos = atributos;
 	}
 
-	public List<String> getClasses() {
+	public List<Double> getClasses() {
 		return classes;
 	}
 
-	public void setClasses(List<String> classes) {
+	public void setClasses(List<Double> classes) {
 		this.classes = classes;
+	}
+
+	public int getQuantInstancias() {
+		return quantInstancias;
 	}
 
 }
