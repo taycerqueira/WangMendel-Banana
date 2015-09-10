@@ -3,8 +3,8 @@ package wang.mendel;
 public class ConjuntoFuzzy {
 	
 	private Atributo atributo;
-	private double limiteInferior;
-	private double limiteSuperior;
+	private static double limiteInferior;
+	private static double limiteSuperior;
 	private int indiceConjunto;
 	
 	public ConjuntoFuzzy(Atributo atributo, double limiteInferior, double limiteSuperior, int indiceConjunto) {
@@ -40,5 +40,27 @@ public class ConjuntoFuzzy {
 		this.limiteInferior = limiteInferior;
 	}
 	
+	//Calculo da pertinência triangular
+	public static double calculaPertinencia(double x){
+		
+		double pertinencia = 0;
+		double m = (limiteSuperior - limiteInferior)/2;
+		
+		if(x <= limiteInferior){
+			pertinencia = 0;
+		}
+		else if(x > limiteInferior && x < m){
+			pertinencia = (x - limiteInferior)/(m - limiteInferior);
+		}
+		else if(x > m && x < limiteSuperior){
+			pertinencia = (limiteSuperior - x)/(limiteSuperior - m);
+		}
+		else if(x > limiteSuperior){
+			pertinencia = 0;
+		}
+		
+		return pertinencia;
+
+	}
 
 }

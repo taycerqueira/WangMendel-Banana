@@ -14,9 +14,11 @@ public class Database {
 	private List<Atributo> atributos;
 	private List<Double> classes;
 	private int quantInstancias = 0;
+	private double matrizDados[][];
 
 	public Database() {
 		super();
+		//this.matrizDados = new double[dados.getAtributos().size()][dados.getQuantInstancias()];
 	}
 	
 	public void lerDados(String nomeArquivo) {
