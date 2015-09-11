@@ -10,7 +10,7 @@ public class Atributo {
 	private double limiteSuperior;
 	private int indice;
 	private List<Double> valores;
-	private List<ConjuntoFuzzy> conjuntosFuzzy;
+	//private List<ConjuntoFuzzy> conjuntosFuzzy;
 	
 	public Atributo(String nomeAtributo, double limiteInferior, double limiteSuperior, int indice) {
 		
@@ -18,7 +18,7 @@ public class Atributo {
 		this.limiteInferior = limiteInferior;
 		this.limiteSuperior = limiteSuperior;
 		this.indice = indice;
-		this.conjuntosFuzzy = new ArrayList<ConjuntoFuzzy>();
+		//this.conjuntosFuzzy = new ArrayList<ConjuntoFuzzy>();
 		//this.valores = new ArrayList<Double>();
 
 	}
@@ -60,8 +60,8 @@ public class Atributo {
 	
 	public List<ConjuntoFuzzy> getConjuntosFuzzy(int qntRegioes){
 		
-		System.out.println("=> Criando conjuntos fuzzy");
-			
+		//System.out.println("=> Criando conjuntos fuzzy");
+		List<ConjuntoFuzzy> conjuntosFuzzy = new ArrayList<ConjuntoFuzzy>();
 		//ConjuntoFuzzy conjunto = new ConjuntoFuzzy(atributo, limiteSuperior, limiteInferior)
 		double tamanhoDominio = this.limiteSuperior - this.limiteInferior;
 		//System.out.println("Extensão do domínio: " + tamanhoDominio + "[" + this.limiteInferior + ", " + this.limiteSuperior + "]");
@@ -71,14 +71,15 @@ public class Atributo {
 		
 		//Definição dos limites das regiões de pertinencia triangular
 		for(int i = 0; i < qntRegioes; i++){
-			ConjuntoFuzzy conjunto = new ConjuntoFuzzy(this, inf, sup, i);
-			this.conjuntosFuzzy.add(conjunto);
-			System.out.println("Conjunto: " + i + " [" + inf + ", " + sup + "]");
+			String nomeConjunto = new String(this.nomeAtributo + "(" + i + ")");
+			ConjuntoFuzzy conjunto = new ConjuntoFuzzy(this, inf, sup, i, nomeConjunto);
+			conjuntosFuzzy.add(conjunto);
+			//System.out.println("Conjunto: " + i + " [" + inf + ", " + sup + "]");
 			inf += range/2;
 			sup += range/2;
 		}
-		
-		return this.conjuntosFuzzy;
+		//System.out.println("TAMANHO DA LISTA DE CONJ FUZZY DO ATRIBUTO: " + conjuntosFuzzy.size());
+		return conjuntosFuzzy;
 
 	}
 

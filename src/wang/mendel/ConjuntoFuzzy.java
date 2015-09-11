@@ -3,16 +3,20 @@ package wang.mendel;
 public class ConjuntoFuzzy {
 	
 	private Atributo atributo;
-	private static double limiteInferior;
-	private static double limiteSuperior;
+	private double limiteInferior;
+	private double limiteSuperior;
 	private int indiceConjunto;
+	private String nomeConjunto; //[nome do atributo](indice do conjunto)
 	
-	public ConjuntoFuzzy(Atributo atributo, double limiteInferior, double limiteSuperior, int indiceConjunto) {
+	public ConjuntoFuzzy(Atributo atributo, double limiteInferior, double limiteSuperior, int indiceConjunto, String nomeConjunto) {
 
 		this.atributo = atributo;
 		this.limiteInferior = limiteInferior;
 		this.limiteSuperior = limiteSuperior;
 		this.indiceConjunto = indiceConjunto;
+		this.nomeConjunto = nomeConjunto;
+		
+		//System.out.println("Conjunto fuzzy criado! [" + this.limiteInferior + ", " + this.limiteSuperior + "]");
 		
 	}
 
@@ -48,11 +52,21 @@ public class ConjuntoFuzzy {
 		this.indiceConjunto = indiceConjunto;
 	}
 
+	public String getNomeConjunto() {
+		return nomeConjunto;
+	}
+
+	public void setNomeConjunto(String nomeConjunto) {
+		this.nomeConjunto = nomeConjunto;
+	}
+
 	//Calculo da pertinência triangular
-	public static double calculaPertinencia(double x){
-		
+	public double calculaPertinencia(double x){
+		//System.out.println("Calculando pertinência no conjunto " + this.indiceConjunto);
 		double pertinencia = 0;
-		double m = (limiteSuperior - limiteInferior)/2;
+		double m = (limiteSuperior + limiteInferior)/2;
+
+		//System.out.println("Valor de x: " + x + " | Valor de m: " + m + " | Limite Inferior: " + limiteInferior + " | Limite Superior: " + limiteSuperior);
 		
 		if(x <= limiteInferior){
 			pertinencia = 0;
@@ -66,7 +80,7 @@ public class ConjuntoFuzzy {
 		else if(x > limiteSuperior){
 			pertinencia = 0;
 		}
-		
+		//System.out.println("Pertinência calculada: " + pertinencia);
 		return pertinencia;
 
 	}
