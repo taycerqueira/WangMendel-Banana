@@ -40,6 +40,14 @@ public class ConjuntoFuzzy {
 		this.limiteInferior = limiteInferior;
 	}
 	
+	public int getIndiceConjunto() {
+		return indiceConjunto;
+	}
+
+	public void setIndiceConjunto(int indiceConjunto) {
+		this.indiceConjunto = indiceConjunto;
+	}
+
 	//Calculo da pertinência triangular
 	public static double calculaPertinencia(double x){
 		

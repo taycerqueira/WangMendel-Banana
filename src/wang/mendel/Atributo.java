@@ -18,6 +18,7 @@ public class Atributo {
 		this.limiteInferior = limiteInferior;
 		this.limiteSuperior = limiteSuperior;
 		this.indice = indice;
+		this.conjuntosFuzzy = new ArrayList<ConjuntoFuzzy>();
 		//this.valores = new ArrayList<Double>();
 
 	}
@@ -63,7 +64,7 @@ public class Atributo {
 			
 		//ConjuntoFuzzy conjunto = new ConjuntoFuzzy(atributo, limiteSuperior, limiteInferior)
 		double tamanhoDominio = this.limiteSuperior - this.limiteInferior;
-		System.out.println("Extensão do domínio: " + tamanhoDominio + "[" + this.limiteInferior + ", " + this.limiteSuperior + "]");
+		//System.out.println("Extensão do domínio: " + tamanhoDominio + "[" + this.limiteInferior + ", " + this.limiteSuperior + "]");
 		double range = tamanhoDominio/(qntRegioes - 1);
 		double inf = this.limiteInferior;
 		double sup = this.limiteInferior + range;

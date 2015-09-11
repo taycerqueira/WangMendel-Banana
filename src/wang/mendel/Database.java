@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
-import java.util.StringTokenizer;
 
 public class Database {
 	
@@ -14,7 +12,7 @@ public class Database {
 	private List<Atributo> atributos;
 	private List<Double> classes;
 	private int quantInstancias = 0;
-	private double matrizDados[][];
+	private List<Instancia> instancias;
 
 	public Database() {
 		super();
@@ -28,6 +26,7 @@ public class Database {
 			this.nomeRelacao = new String();
 			this.atributos = new ArrayList<Atributo>();
 			this.classes = new ArrayList<Double>();
+			this.instancias = new ArrayList<Instancia>();
 			int contIndiceAtributo = 0;
 		
 			while (dados.ready()) { 
@@ -85,16 +84,19 @@ public class Database {
 				//Dados
 				else{
 					//System.out.println(linha);
-					this.quantInstancias++;
+					//this.quantInstancias++;
 					String[] l = linha.split(",");
-					for(int i = 0; i < contIndiceAtributo; i++){
+					Instancia i = new Instancia(Double.parseDouble(l[0]), Double.parseDouble(l[1]), Double.parseDouble(l[2]));
+					this.instancias.add(i);
+					/*for(int i = 0; i < contIndiceAtributo; i++){
 						//System.out.println("i == " + i);
 						atributos.get(i).getValores().add(Double.parseDouble(l[i]));
 						//System.out.println(Double.parseDouble(l[i]));
-					}
+					}*/
 				}
 			}
 			
+			this.quantInstancias = instancias.size();
 			System.out.println("=> Quantidade de instâncias: " + quantInstancias);
 
 		}  catch (IOException e) {
@@ -140,6 +142,10 @@ public class Database {
 
 	public int getQuantInstancias() {
 		return quantInstancias;
+	}
+
+	public List<Instancia> getInstancias() {
+		return instancias;
 	}
 
 }
