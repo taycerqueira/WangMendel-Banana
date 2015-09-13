@@ -47,7 +47,7 @@ public class Regra {
 	}	
 	
 	public String printRegra(){
-		return "Regra: " + this.getAntecedente1().getAtributo().getNomeAtributo() + "(" + antecedente1.getIndiceConjunto() + ") e " + this.getAntecedente2().getAtributo().getNomeAtributo() + "(" + antecedente2.getIndiceConjunto() + ") => " + consequente;
+		return "Regra: " + this.getAntecedente1().getAtributo().getNomeAtributo() + "(" + antecedente1.getIndiceConjunto() + ") e " + this.getAntecedente2().getAtributo().getNomeAtributo() + "(" + antecedente2.getIndiceConjunto() + ") => " + consequente + " {" + this.grau + "}";
 	}
 
 }

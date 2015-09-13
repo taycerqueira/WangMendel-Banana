@@ -3,9 +3,8 @@ package wang.mendel;
 import java.util.ArrayList;
 import java.util.List;
 
-/* O conjunto de treinamento são a primeira metade da base, o de teste são a segunda metade.
- * 
- **/
+/* O conjunto de treinamento são a primeira metade da base, o de teste são a segunda metade.*/
+
 public class WangMendel {
 	
 	private Database dados;
@@ -16,10 +15,7 @@ public class WangMendel {
 	
 
 	public WangMendel(Database dados) {
-		this.dados = dados;
-		init();
-		//System.out.println("Quantidade de instâncias: " + dados.getQuantInstancias());
-			
+		this.dados = dados;	
 	}
 	
 	public void init(){
@@ -92,7 +88,7 @@ public class WangMendel {
 			
 			//Crio a regra
 			Regra regra = new Regra(c0, c1, classe, p0*p1);
-			//System.out.println("Regra: " + c0.getAtributo().getNomeAtributo() + "(" + c0.getIndiceConjunto() + ") e " + c1.getAtributo().getNomeAtributo() + "(" + c1.getIndiceConjunto() + ") => " + classe);
+			//System.out.println(regra.printRegra());
 			regras.add(regra);
 		}
 		System.out.println("* Quantidade bruta de regras geradas: " + regras.size());
@@ -100,60 +96,70 @@ public class WangMendel {
 		System.out.println("* Removendo regras conflitantes...");
 		this.regras = removeRegrasConflitantes(regras);
 		System.out.println("=> BASE DE CONHECIMENTO");
-		/*for (Regra regra : regras) {
+		System.out.println("* Quantidade de regras geradas: " + this.regras.size());
+		for (Regra regra : this.regras) {
 			System.out.println(regra.printRegra());
-		}*/;
+		};
 		return regras;
 	}
 	
 	private List<Regra> removeRegrasConflitantes(List<Regra> regras){
-		//MÉTODO BICHADO! PENSAR NUM ALGORTIMO PRA FAZER ISSO...
-		List<Regra> r = null;
+		List<Regra> r = new ArrayList<Regra>();
 	    
 	    for(int i = 0; i < regras.size(); i++){
-	    	Regra regra1 = regras.get(i);
-			String antecedente1 = regra1.getAntecedente1().getNomeConjunto();
-			String antecedente2 = regra1.getAntecedente2().getNomeConjunto();
-			//System.out.println("Regra atual: ");
-			regra1.printRegra();
-			
-			for(int j =  i + 1; j < regras.size(); j++){
-				Regra regra2 = regras.get(j);
-				if(antecedente1.equals(regra2.getAntecedente1().getNomeConjunto()) && (antecedente2.equals(regra2.getAntecedente2().getNomeConjunto()))){
-					System.out.println("Regras iguais detectada!");
-					System.out.println("1 - " + regra1.printRegra() + " | Grau: " + regra1.getGrau());
-					System.out.println("2 - " + regra2.printRegra() + " | Grau: " + regra2.getGrau());
-					if(regra1.getGrau() > regra2.getGrau()){
-						regras.remove(j);
-					}
-					else{
-						regras.remove(i);
+	    	Regra regraMaiorGrau = regras.get(i);
+	    	if(regraMaiorGrau != null){
+				String antecedente1 = regraMaiorGrau.getAntecedente1().getNomeConjunto();
+				String antecedente2 = regraMaiorGrau.getAntecedente2().getNomeConjunto();
+				//System.out.println("Regra atual: " + regra1.printRegra());
+				for(int j =  i + 1; j < regras.size(); j++){
+					Regra regra2 = regras.get(j);
+					if(regra2 != null){
+						if(antecedente1.equals(regra2.getAntecedente1().getNomeConjunto()) && (antecedente2.equals(regra2.getAntecedente2().getNomeConjunto()))){
+							//System.out.println("Regras iguais detectada!");
+							//System.out.println("1 - " + regra1.printRegra() + " | Grau: " + regra1.getGrau());
+							//System.out.println("2 - " + regra2.printRegra() + " | Grau: " + regra2.getGrau());
+							if(regra2.getGrau() > regraMaiorGrau.getGrau()){
+								regraMaiorGrau = regra2;
+								//System.out.println("Regra de maior grau: " + regraMaiorGrau.getGrau());
+							}
+							regras.set(j, null);
+						}
 					}
 
 				}
-			}
+				if(r.isEmpty()){
+					r.add(regraMaiorGrau);
+				}
+				//Verifica se a regra já não existe na lista de regras de maior grau, se sim, verifica quem tem maior grau
+				else{
+					//System.out.println("Regra de maior grau: " + regraMaiorGrau.printRegra());
+					boolean regraEncontrada = false;
+					for (Regra regra : r) {
+						String a1 = regra.getAntecedente1().getNomeConjunto();
+						String a2 = regra.getAntecedente2().getNomeConjunto();
+						if(a1.equals(regraMaiorGrau.getAntecedente1().getNomeConjunto()) && (a2.equals(regraMaiorGrau.getAntecedente2().getNomeConjunto()))){
+							//System.out.println("Regra igual encontrada. Grau da regra " + regra.printRegra());
+							if(regraMaiorGrau.getGrau() > regra.getGrau()){
+								//System.out.println("Nova regra com grau maior do que a regra que ja existia");
+								r.remove(regra);
+								r.add(regraMaiorGrau);
+								regraEncontrada = true;
+								//System.out.println("Regra de maior grau: " + regraMaiorGrau.getGrau());
+							}
+						}
+					}
+					if(regraEncontrada == false){
+						r.add(regraMaiorGrau);
+					}
+				}
+	    		
+	    	}
+	
 	    }
-		
-	    r = regras;
+	
 		return r;
 		
 	}
-	
-	//Retorna o conjunto que possui maior pertinência a partir de um valor x em um determinado atributo
-	/*private ConjuntoFuzzy getConjunto(double valor, Atributo atributo){
-		
-		ConjuntoFuzzy conjunto = null;
-		double maiorPertinencia = 0;
-		
-		for (ConjuntoFuzzy c : atributo.getConjuntosFuzzy(this.qntRegioes)) {
-			double p = c.calculaPertinencia(valor);
-			if(p > maiorPertinencia){
-				p = maiorPertinencia;
-			}
-		}
-		
-		return conjunto;
-		
-	}*/
 
 }

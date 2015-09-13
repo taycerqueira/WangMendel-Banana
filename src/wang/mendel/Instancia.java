@@ -1,7 +1,5 @@
 package wang.mendel;
 
-import java.util.List;
-
 public class Instancia {
 	
 	private Double atributo0;

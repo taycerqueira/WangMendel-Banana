@@ -9,8 +9,6 @@ public class Atributo {
 	private double limiteInferior;
 	private double limiteSuperior;
 	private int indice;
-	private List<Double> valores;
-	//private List<ConjuntoFuzzy> conjuntosFuzzy;
 	
 	public Atributo(String nomeAtributo, double limiteInferior, double limiteSuperior, int indice) {
 		
@@ -18,8 +16,6 @@ public class Atributo {
 		this.limiteInferior = limiteInferior;
 		this.limiteSuperior = limiteSuperior;
 		this.indice = indice;
-		//this.conjuntosFuzzy = new ArrayList<ConjuntoFuzzy>();
-		//this.valores = new ArrayList<Double>();
 
 	}
 	
@@ -48,14 +44,6 @@ public class Atributo {
 	}
 	public void setIndice(int indice) {
 		this.indice = indice;
-	}
-
-	public List<Double> getValores() {
-		return valores;
-	}
-
-	public void setValores(List<Double> valores) {
-		this.valores = valores;
 	}
 	
 	public List<ConjuntoFuzzy> getConjuntosFuzzy(int qntRegioes){

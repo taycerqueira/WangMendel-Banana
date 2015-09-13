@@ -16,7 +16,6 @@ public class Database {
 
 	public Database() {
 		super();
-		//this.matrizDados = new double[dados.getAtributos().size()][dados.getQuantInstancias()];
 	}
 	
 	public void lerDados(String nomeArquivo) {
@@ -88,11 +87,7 @@ public class Database {
 					String[] l = linha.split(",");
 					Instancia i = new Instancia(Double.parseDouble(l[0]), Double.parseDouble(l[1]), Double.parseDouble(l[2]));
 					this.instancias.add(i);
-					/*for(int i = 0; i < contIndiceAtributo; i++){
-						//System.out.println("i == " + i);
-						atributos.get(i).getValores().add(Double.parseDouble(l[i]));
-						//System.out.println(Double.parseDouble(l[i]));
-					}*/
+
 				}
 			}
 			
@@ -103,16 +98,7 @@ public class Database {
 			
 			System.out.println(e);
 			
-		} 
-		
-		/*Atributo atributo = this.atributos.get(1);
-		for (Double valor : atributo.getValores()) {
-			System.out.println(valor);
-		}*/
-		
-		/*System.out.println("tamanho 1: " + this.atributos.get(0).getValores().size());
-		System.out.println("tamanho 2: " + this.atributos.get(1).getValores().size());*/
-		
+		} 	
 
 	}
 

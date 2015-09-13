@@ -11,6 +11,7 @@ public class Main {
 		Database dados = new Database();
 		dados.lerDados("banana.dat");
 		WangMendel wm = new WangMendel(dados);
+		wm.init();
 
 	}
 
